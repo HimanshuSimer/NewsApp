@@ -1,9 +1,18 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.NewsApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<!-- res/values/styles.xml -->
+<resources>
+
+    <!-- Base App Theme (Light / Default) -->
+    <style name="Theme.NewsApp" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your light theme here -->
+        <item name="colorPrimary">@color/blue_500</item>
+        <item name="colorOnPrimary">@color/white</item>
     </style>
 
-    <style name="Theme.NewsApp" parent="Base.Theme.NewsApp" />
+    <!-- Day/Night Theme Variant -->
+    <style name="Theme.NewsApp.DayNight" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your day/night theme here -->
+        <item name="colorPrimary">@color/blue_500</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
 </resources>
