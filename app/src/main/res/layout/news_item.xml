@@ -64,5 +64,6 @@
             android:textSize="16sp"
             tools:text="News Description" />
 
+
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

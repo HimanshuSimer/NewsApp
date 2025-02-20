@@ -1,12 +1,16 @@
 package com.app.newsapp
-
+import android.util.Log
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +26,7 @@ class HomeFragment : Fragment() {
 
     private val newsList = mutableListOf<Article>()
     private lateinit var adapter: NewsAdapter
+    private lateinit var searchView: SearchView
     private lateinit var categorySpinner: AutoCompleteTextView
 
     override fun onCreateView(
@@ -30,6 +35,8 @@ class HomeFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        searchView = view.findViewById(R.id.searchView)
+        searchView.queryHint = "Search News..."
         categorySpinner = view.findViewById(R.id.categorySpinner)
         adapter = NewsAdapter(requireContext(), newsList)
 
@@ -37,6 +44,7 @@ class HomeFragment : Fragment() {
         recyclerView.adapter = adapter
 
         fetchNewsByCategory("General")
+        setUpSearchView()
         setUpCategoryDropdown()
 
         return view
@@ -48,7 +56,7 @@ class HomeFragment : Fragment() {
                 if (response.isSuccessful && response.body() != null) {
                     newsList.clear()
                     newsList.addAll(response.body()!!.articles)
-                    adapter.notifyDataSetChanged()
+                    adapter.updateList(newsList)
                 }
             }
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
@@ -67,22 +75,47 @@ class HomeFragment : Fragment() {
         )
 
         categorySpinner.setAdapter(adapter)
-
         categorySpinner.setOnItemClickListener { parent, _, position, _ ->
             val selectedCategory = parent.getItemAtPosition(position).toString()
             fetchNewsByCategory(selectedCategory)
             Toast.makeText(requireContext(), "Selected: $selectedCategory", Toast.LENGTH_SHORT).show()
         }
 
-
         categorySpinner.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                categorySpinner.showDropDown()
-            }
+            if (hasFocus) categorySpinner.showDropDown()
         }
 
         categorySpinner.setOnClickListener {
             categorySpinner.showDropDown()
         }
+    }
+
+    private fun setUpSearchView() {
+        val searchText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        searchText.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_500))
+        searchText.setHintTextColor(ContextCompat.getColor(requireContext(), R.color.blue_500))
+
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                filterNews(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterNews(newText)
+                return true
+            }
+        })
+    }
+
+
+    private fun filterNews(query: String?) {
+        val filteredList = if (!query.isNullOrEmpty()) {
+            newsList.filter { it.title?.contains(query, ignoreCase = true) == true }
+        } else {
+            newsList
+        }
+        Log.d("SearchDebug", "Filtered List Size: ${filteredList.size}")
+        adapter.updateList(filteredList)
     }
 }

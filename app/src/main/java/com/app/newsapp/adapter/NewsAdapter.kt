@@ -13,21 +13,16 @@ import com.app.newsapp.model.Article
 import com.app.newsapp.utils.BookmarkManager
 import com.bumptech.glide.Glide
 
-class NewsAdapter(private val context: Context, private val newsList: List<Article>) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(private val context: Context, private var newsList: List<Article>) :
+    RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
-    // new code
     private val bookmarkManager = BookmarkManager(context)
 
     class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val newsTitle: TextView = view.findViewById(R.id.newsTitle)
         val newsDescription: TextView = view.findViewById(R.id.newsDescription)
         val newsImage: ImageView = view.findViewById(R.id.newsImage)
-
-        // new code
-        val bookmarkButton: ImageView = itemView.findViewById(R.id.bookmarkButton)
-        fun bind(article: Article) {
-            newsTitle.text = article.title
-        }
+        val bookmarkButton: ImageView = view.findViewById(R.id.bookmarkButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -45,11 +40,6 @@ class NewsAdapter(private val context: Context, private val newsList: List<Artic
             .placeholder(R.drawable.ic_launcher_background)
             .into(holder.newsImage)
 
-
-        // new code
-
-        holder.bind(news)
-        // Set Bookmark Button Click
         holder.bookmarkButton.setOnClickListener {
             if (bookmarkManager.getBookmarks().contains(news)) {
                 bookmarkManager.removeBookmark(news)
@@ -63,4 +53,9 @@ class NewsAdapter(private val context: Context, private val newsList: List<Artic
     }
 
     override fun getItemCount() = newsList.size
+
+    fun updateList(newList: List<Article>) {
+        newsList = newList
+        notifyDataSetChanged()
+    }
 }

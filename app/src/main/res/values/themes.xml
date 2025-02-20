@@ -6,6 +6,7 @@
         <!-- Customize your light theme here -->
         <item name="colorPrimary">@color/blue_500</item>
         <item name="colorOnPrimary">@color/white</item>
+
     </style>
 
     <!-- Day/Night Theme Variant -->
@@ -13,6 +14,12 @@
         <!-- Customize your day/night theme here -->
         <item name="colorPrimary">@color/blue_500</item>
         <item name="colorOnPrimary">@color/white</item>
+
+    </style>
+    <style name="CustomSearchViewStyle" parent="ThemeOverlay.MaterialComponents.TextInputEditText">
+        <item name="android:textColorHint">@color/blue_500</item>
+        <item name="android:textColor">@color/blue_500</item>
+        <item name="android:tint">@color/blue_500</item>
     </style>
 
 </resources>
