@@ -1,7 +1,8 @@
 package com.app.newsapp
-import android.util.Log
+
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,10 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
+
+        searchView.isIconified = false
+        searchView.clearFocus()
+
         fetchNewsByCategory("General")
         setUpSearchView()
         setUpCategoryDropdown()
@@ -75,27 +80,43 @@ class HomeFragment : Fragment() {
         )
 
         categorySpinner.setAdapter(adapter)
+
         categorySpinner.setOnItemClickListener { parent, _, position, _ ->
             val selectedCategory = parent.getItemAtPosition(position).toString()
             fetchNewsByCategory(selectedCategory)
             Toast.makeText(requireContext(), "Selected: $selectedCategory", Toast.LENGTH_SHORT).show()
         }
 
+
         categorySpinner.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) categorySpinner.showDropDown()
+            if (hasFocus && isAdded && userInteracted) {
+                categorySpinner.post { categorySpinner.showDropDown() }
+            }
         }
 
         categorySpinner.setOnClickListener {
-            categorySpinner.showDropDown()
+            if (isAdded && userInteracted) {
+                categorySpinner.post { categorySpinner.showDropDown() }
+            }
         }
     }
+
+
+    private var userInteracted = false
+
+    override fun onResume() {
+        super.onResume()
+        userInteracted = true
+    }
+
+
 
     private fun setUpSearchView() {
         val searchText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
         searchText.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_500))
         searchText.setHintTextColor(ContextCompat.getColor(requireContext(), R.color.blue_500))
 
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 filterNews(query)
                 return true
@@ -107,7 +128,6 @@ class HomeFragment : Fragment() {
             }
         })
     }
-
 
     private fun filterNews(query: String?) {
         val filteredList = if (!query.isNullOrEmpty()) {

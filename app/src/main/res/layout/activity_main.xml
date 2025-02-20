@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_light"
+    android:background="@color/blue_500"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -15,8 +15,9 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:elevation="6dp"
-        android:theme="@style/ThemeOverlay.Material3.ActionBar"
+        app:navigationIcon="@drawable/ic_news"
         app:title="@string/app_name"
+        android:theme="@style/CustomToolbarTheme"
         app:titleCentered="true"
 
         app:layout_constraintTop_toTopOf="parent"
@@ -29,7 +30,7 @@
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="16dp"
+        android:layout_margin="1dp"
         android:background="@drawable/rounded_card"
         app:layout_constraintTop_toBottomOf="@id/topAppBar"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"

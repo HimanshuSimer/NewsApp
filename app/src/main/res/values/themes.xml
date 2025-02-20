@@ -21,5 +21,8 @@
         <item name="android:textColor">@color/blue_500</item>
         <item name="android:tint">@color/blue_500</item>
     </style>
+    <style name="CustomToolbarTheme" parent="ThemeOverlay.Material3.ActionBar">
+        <item name="android:textColorPrimary">@color/white</item> <!-- Change to your desired color -->
+    </style>
 
 </resources>

@@ -10,6 +10,6 @@ interface NewsApiService {
     @GET("everything")
     fun searchNews(
         @Query("q") query: String,
-        @Query("apiKey") apiKey: String = "4eb4fe91f29040ea823bf2be3e2e474e"
+        @Query("apiKey") apiKey: String = "2266a51fe62842fa9aa040a870d8e2bd"
     ): Call<NewsResponse>
 }

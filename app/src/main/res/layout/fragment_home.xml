@@ -10,25 +10,38 @@
     android:padding="16dp"
     tools:context=".HomeFragment">
 
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
         android:queryHint="Search News..."
+        android:background="@drawable/rounded_outline_blue"
         android:textColor="@color/blue_500"
         android:textColorHint="@color/blue_500"
         style="@style/CustomSearchViewStyle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:padding="10dp"/>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/categorySpinnerContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Select Category"
+        android:hint="Select Category "
+        android:textColorHint="@color/blue_500"
+        android:background="@drawable/rounded_outline_blue"
+        app:boxBackgroundMode="outline"
+        app:boxStrokeColor="@color/blue_500"
+        app:boxCornerRadiusTopStart="25dp"
+        app:boxCornerRadiusTopEnd="25dp"
+        app:boxCornerRadiusBottomStart="25dp"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:endIconDrawable="@drawable/ic_dropdown"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toBottomOf="@id/searchView"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,9 +53,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
+            android:paddingLeft="30dp"
             android:inputType="none"
             android:textColor="@color/blue_500"
             android:textColorHint="@color/blue_500"
+            android:focusable="false"
             android:background="@android:color/transparent"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,7 +67,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/rounded_card"
         android:elevation="4dp"
         app:layout_constraintTop_toBottomOf="@id/categorySpinnerContainer"
         app:layout_constraintBottom_toBottomOf="parent"

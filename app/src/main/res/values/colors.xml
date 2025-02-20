@@ -9,5 +9,8 @@
     <color name="text_primary">#212121</color>
     <color name="blue_500">#2196F3</color>
     <color name="text_secondary">#616161</color>
+    <color name="dark_gray">#333333</color>
+    <color name="light_gray">#F2F5F9</color>
+    <color name="blue_700">#1565C0</color>
 
 </resources>

@@ -1,19 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="12dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="6dp"
-    app:strokeColor="@color/material_on_surface_variant"
-    app:strokeWidth="1dp">
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp"
+    app:cardBackgroundColor="@color/white"
+    android:outlineSpotShadowColor="@color/blue_500"
+    android:outlineAmbientShadowColor="@color/blue_500">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/bookmarkImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/bookmarkTitle"
@@ -21,12 +31,15 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/bookmarkImage"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/bookmarkRemoveButton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:gravity="center_vertical"
-            android:paddingEnd="12dp" />
+            app:layout_constraintEnd_toStartOf="@id/bookmarkRemoveButton"
+            android:paddingTop="8dp"
+            android:layout_marginEnd="8dp"/>
+
 
         <ImageView
             android:id="@+id/bookmarkRemoveButton"
@@ -34,10 +47,23 @@
             android:layout_height="36dp"
             android:padding="6dp"
             android:src="@drawable/ic_bookmarks"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/bookmarkTitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tint="?attr/colorOnSurfaceVariant" />
+            app:tint="@color/blue_500"/>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bookmarkDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/dark_gray"
+            android:maxLines="3"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/bookmarkTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingTop="4dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
